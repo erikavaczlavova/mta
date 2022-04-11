@@ -1,16 +1,12 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, Pressable } from 'react-native';
+
 const Hamburger = (props) =>{
   return(
- <View style={styles.hamburger}>
-    <Button title="NotHome" color="blue" onPress={() =>
-    props.navigation.navigate('NotHome')
-  } />
-    <Button title="Home" color="blue" onPress={() =>
-    props.navigation.navigate('Home')
-  } />
+    <View style={styles.hamburger}>
+      <Button title="NotHome" color="blue" onPress={() => props.navigation.navigate('NotHome')}/>
+      <Button title="Home" color="blue" onPress={() => props.navigation.navigate('Home')}/>
     </View>
-
   )
 }
 
@@ -20,7 +16,7 @@ hamburger: {
   flexDirection: 'column',
   backgroundColor: 'green',
   height: '100%',
-  maxWidth: '30%',
+  maxWidth: '25%',
   display: 'flex',
   paddingTop: 30
 }
