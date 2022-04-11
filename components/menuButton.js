@@ -7,7 +7,9 @@ const MenuButton = props => {
   };
   return (
     <Pressable onPress={switchu} style={styles.but}>
-      <Text>Hello there /</Text>
+      <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
+        Menu
+      </Text>
     </Pressable>
   );
 };

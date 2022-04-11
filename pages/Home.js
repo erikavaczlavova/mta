@@ -28,7 +28,9 @@ const styles = StyleSheet.create({
   },
   but: {
     position: 'absolute',
-    backgroundColor: 'purple',
+    backgroundColor: 'red',
+    width: '100%',
+    padding: 2,
     top: 0,
     left: 0,
   },
