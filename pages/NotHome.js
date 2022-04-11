@@ -13,9 +13,7 @@ const NotHome = (props) =>{
         <View style={styles.body}> 
           <Text>NotHome page</Text>
         </View>
-        <Pressable  onPress={switchu} style={styles.but}>
-          <Text>Hello there /</Text>
-        </Pressable>
+        <Pressable  onPress={switchu} style={styles.but}><Text style={{fontSize:20,fontWeight:'bold',color:'black'}}>Menu </Text></Pressable>
           <StatusBar style="auto" />
       </View>
       )
@@ -34,6 +32,9 @@ const styles = StyleSheet.create({
   },
   but:{
     position: "absolute",
+    backgroundColor: 'red',
+    width: "100%",
+    padding: 2,
     top: 0,
     left: 0
 }

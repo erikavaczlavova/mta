@@ -11,7 +11,7 @@ const Home = (props) =>{
       <View style={styles.homeBody}>            
         {isOn && <Hamburger navigation = {props.navigation}/>}
           
-        <Pressable  onPress={switchu} style={styles.but}><Text>Hello there /</Text></Pressable>
+        <Pressable  onPress={switchu} style={styles.but}><Text style={{fontSize:20,fontWeight:'bold',color:'white'}}>Menu </Text></Pressable>
           <StatusBar style="auto" />
       </View>
       )
@@ -30,7 +30,9 @@ const styles = StyleSheet.create({
   },
   but:{
     position: "absolute",
-    backgroundColor: 'purple',
+    backgroundColor: 'red',
+    width: "100%",
+    padding: 2,
     top: 0,
     left: 0
 }
