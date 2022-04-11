@@ -9,18 +9,13 @@ import Hamburger from "./components/hamburger"
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-    const [isOn, setIsOn] = useState(false);
-    const switchu = () => {
-        setIsOn(!isOn);
-    };
     return (
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen
-                    name="Home"
-                    component={Home}
-                />
-            <Stack.Screen name="NotHome" component={NotHome} />
+            <Stack.Group screenOptions={{ headerStyle: {backgroundColor: 'red'} }}>
+                <Stack.Screen name="Home" component={Home} options={styles.header} />
+                <Stack.Screen name="NotHome" component={NotHome} options={styles.header}/>
+            </Stack.Group>
           </Stack.Navigator>
         </NavigationContainer>
     );
@@ -35,7 +30,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: "100%"
     },
-
+    header: {
+        headerTitleAlign: 'center',
+        backgroundColor: 'red'
+    },
     but:{
         position: "absolute",
         top: 0,
