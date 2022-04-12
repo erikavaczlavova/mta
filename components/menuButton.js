@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   but: {
     position: 'absolute',
     backgroundColor: 'red',
-    bottom: 0,
+    top: 0,
     left: 0,
     width: '33%',
     padding: 10,

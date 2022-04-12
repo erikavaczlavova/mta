@@ -8,8 +8,9 @@ const Home = props => {
   const [isOn, setIsOn] = useState(true);
   return (
     <View style={styles.homeBody}>
-      {isOn && <Hamburger navigation={props.navigation} />}
-      <MenuButton isOn={isOn} setIsOn={setIsOn} />
+      <View style={styles.body}>
+        <Text>Home, buttony 3 ks</Text>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 2,
     position: 'relative',
-    backgroundColor: 'orange',
+    backgroundColor: 'olive',
     height: '100%',
   },
   but: {
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     width: '100%',
     padding: 2,
-    top: 0,
+    top: 50,
     left: 0,
   },
 });

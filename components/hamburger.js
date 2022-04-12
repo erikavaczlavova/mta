@@ -1,6 +1,12 @@
+import {StackActions} from '@react-navigation/native';
 import React from 'react';
 import {Button, StyleSheet, Text, View, Pressable} from 'react-native';
 
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Pcr from '../pages/Testy';
+const Stack = createNativeStackNavigator();
+/*
 const Hamburger = props => {
   return (
     <View style={styles.hamburger}>
@@ -41,6 +47,7 @@ const styles = StyleSheet.create({
     height: '100%',
     maxWidth: '30%',
     display: 'flex',
+    paddingTop: 100,
   },
 });
-export default Hamburger;
+export default Hamburger;*/

@@ -8,11 +8,9 @@ const Ockovanie = props => {
   const [isOn, setIsOn] = useState(true);
   return (
     <View style={styles.homeBody}>
-      {isOn && <Hamburger navigation={props.navigation} />}
       <View style={styles.body}>
-        <Text>Ockovanie</Text>
+        <Text>Pass a Ockovania</Text>
       </View>
-      <MenuButton isOn={isOn} setIsOn={setIsOn} />
       <StatusBar style="auto" />
     </View>
   );

@@ -4,15 +4,13 @@ import {StatusBar} from 'expo-status-bar';
 import Hamburger from '../components/hamburger';
 import MenuButton from '../components/menuButton';
 
-const Pcr = props => {
+const Profil = props => {
   const [isOn, setIsOn] = useState(true);
   return (
     <View style={styles.homeBody}>
-      {isOn && <Hamburger navigation={props.navigation} />}
       <View style={styles.body}>
-        <Text>PCR</Text>
+        <Text>Profil a Dokumenty</Text>
       </View>
-      <MenuButton isOn={isOn} setIsOn={setIsOn} />
       <StatusBar style="auto" />
     </View>
   );
@@ -26,7 +24,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 2,
     position: 'relative',
-    backgroundColor: 'orange',
+    backgroundColor: 'tomato',
     height: '100%',
   },
   but: {
@@ -39,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Pcr;
+export default Profil;
