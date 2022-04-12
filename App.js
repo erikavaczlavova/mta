@@ -3,8 +3,11 @@ import {Button, StyleSheet, Text, View, Pressable} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './pages/Home.js';
-import NotHome from './pages/NotHome';
 import Hamburger from './components/hamburger';
+import Pcr from './pages/Pcr.js';
+import Ockovanie from './pages/Ockovanie.js';
+import Pas from './pages/Pas.js';
+import Doku from './pages/Doku.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,9 +17,12 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Group screenOptions={{headerStyle: {backgroundColor: 'red'}}}>
           <Stack.Screen name="Home" component={Home} options={styles.header} />
+          <Stack.Screen name="Pcr" component={Pcr} options={styles.header} />
+          <Stack.Screen name="Pas" component={Pas} options={styles.header} />
+          <Stack.Screen name="Doku" component={Doku} options={styles.header} />
           <Stack.Screen
-            name="NotHome"
-            component={NotHome}
+            name="Ockovanie"
+            component={Ockovanie}
             options={styles.header}
           />
         </Stack.Group>

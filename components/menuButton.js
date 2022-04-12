@@ -7,7 +7,7 @@ const MenuButton = props => {
   };
   return (
     <Pressable onPress={switchu} style={styles.but}>
-      <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
+      <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
         Menu
       </Text>
     </Pressable>
@@ -17,9 +17,11 @@ const MenuButton = props => {
 const styles = StyleSheet.create({
   but: {
     position: 'absolute',
-    backgroundColor: 'purple',
-    top: 0,
+    backgroundColor: 'red',
+    bottom: 0,
     left: 0,
+    width: '33%',
+    padding: 10,
   },
 });
 

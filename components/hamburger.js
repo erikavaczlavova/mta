@@ -12,22 +12,22 @@ const Hamburger = props => {
       <Button
         title="Moje PCR testy"
         color="red"
-        onPress={() => props.navigation.navigate('NotHome')}
+        onPress={() => props.navigation.navigate('Pcr')}
       />
       <Button
         title="Moje ockovanie"
         color="red"
-        onPress={() => props.navigation.navigate('NotHome')}
+        onPress={() => props.navigation.navigate('Ockovanie')}
       />
       <Button
         title="Covid-19 Pas"
         color="red"
-        onPress={() => props.navigation.navigate('NotHome')}
+        onPress={() => props.navigation.navigate('Pas')}
       />
       <Button
         title="Nahrat dokumenty"
         color="red"
-        onPress={() => props.navigation.navigate('NotHome')}
+        onPress={() => props.navigation.navigate('Doku')}
       />
     </View>
   );
@@ -38,10 +38,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'red',
-    height: '40%',
+    height: '100%',
     maxWidth: '30%',
     display: 'flex',
-    paddingTop: 30,
   },
 });
 export default Hamburger;

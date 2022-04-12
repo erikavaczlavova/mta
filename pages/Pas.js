@@ -4,13 +4,13 @@ import {StatusBar} from 'expo-status-bar';
 import Hamburger from '../components/hamburger';
 import MenuButton from '../components/menuButton';
 
-const NotHome = props => {
+const Pas = props => {
   const [isOn, setIsOn] = useState(true);
   return (
     <View style={styles.homeBody}>
       {isOn && <Hamburger navigation={props.navigation} />}
       <View style={styles.body}>
-        <Text>NotHome page</Text>
+        <Text>Pas</Text>
       </View>
       <MenuButton isOn={isOn} setIsOn={setIsOn} />
       <StatusBar style="auto" />
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 2,
     position: 'relative',
-    backgroundColor: 'orange',
+    backgroundColor: 'tomato',
     height: '100%',
   },
   but: {
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NotHome;
+export default Pas;
