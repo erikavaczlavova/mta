@@ -53,7 +53,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   header: {
-    headerTitleStyle: {color: 'white', fontSize: 25},
+    headerTitleStyle: {color: 'red', fontSize: 25},
     headerTitleAlign: 'center',
     backgroundColor: 'red',
   },

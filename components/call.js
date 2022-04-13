@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 2,
+    alignItems: 'center',
     position: 'relative',
     backgroundColor: 'olive',
     height: '100%',
