@@ -1,15 +1,61 @@
-import {Button, StyleSheet, Text, View, Pressable} from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  BackHandler,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
-import Hamburger from '../components/hamburger';
-import MenuButton from '../components/menuButton';
+import Help from '../components/help';
+import Call from '../components/call';
+import TestVacc from '../components/testvacc';
 
 const Home = props => {
   const [isOn, setIsOn] = useState(true);
+  const [aaa, setAaa] = useState('     ');
+  const show = props => {
+    setIsOn(!isOn);
+    setAaa(props);
+  };
+  const back = () => {
+    setIsOn(true);
+    setAaa('      ');
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', back);
+
+    return () => BackHandler.removeEventListener('hardwareBackPress', back);
+  }, []);
   return (
     <View style={styles.homeBody}>
       <View style={styles.body}>
-        <Text>Home, buttony 3 ks</Text>
+        <Text>{aaa}</Text>
+        {isOn && (
+          <View>
+            <Pressable
+              style={styles.button}
+              android_ripple={{color: 'black'}}
+              onPress={() => show(Help)}>
+              <Text style={styles.butText}>Potrebujem pomoc</Text>
+            </Pressable>
+            <Pressable
+              style={styles.button}
+              android_ripple={{color: 'black'}}
+              onPress={() => show(Call)}>
+              <Text style={styles.butText}>Hovor s asistentom</Text>
+            </Pressable>
+            <Pressable
+              style={styles.button}
+              android_ripple={{color: 'black'}}
+              onPress={() => show(TestVacc)}>
+              <Text style={styles.butText}>Termin/Test</Text>
+            </Pressable>
+          </View>
+        )}
       </View>
       <StatusBar style="auto" />
     </View>
@@ -22,18 +68,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   body: {
+    alignItems: 'center',
     flex: 2,
     position: 'relative',
     backgroundColor: 'olive',
     height: '100%',
   },
-  but: {
-    position: 'absolute',
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    elevation: 50,
     backgroundColor: 'red',
-    width: '100%',
-    padding: 2,
-    top: 50,
-    left: 0,
+    height: 100,
+    width: 200,
+    marginVertical: 50,
+  },
+  butText: {
+    color: 'white',
+    fontSize: 25,
   },
 });
 

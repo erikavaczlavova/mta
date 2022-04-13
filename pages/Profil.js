@@ -1,8 +1,6 @@
 import {Button, StyleSheet, Text, View, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
-import Hamburger from '../components/hamburger';
-import MenuButton from '../components/menuButton';
 
 const Profil = props => {
   const [isOn, setIsOn] = useState(true);
@@ -26,14 +24,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: 'tomato',
     height: '100%',
-  },
-  but: {
-    position: 'absolute',
-    backgroundColor: 'red',
-    width: '100%',
-    padding: 2,
-    top: 0,
-    left: 0,
   },
 });
 
