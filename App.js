@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './pages/Home.js';
 import Ockovanie from './pages/Ockovanie.js';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Testy, getMoviesFromApi} from './pages/Testy.js';
+import {Testy} from './pages/Testy.js';
 import Profil from './pages/Profil.js';
 
 const Stack = createNativeStackNavigator();
@@ -27,14 +27,7 @@ export default function App() {
         }}>
         <Tab.Group screenOptions={{headerStyle: {backgroundColor: 'red'}}}>
           <Tab.Screen name="Home" component={Home} options={styles.header} />
-          <Tab.Screen
-            name="Testy"
-            component={Testy}
-            options={styles.header}
-            listeners={{
-              tabPress: getMoviesFromApi,
-            }}
-          />
+          <Tab.Screen name="Testy" component={Testy} options={styles.header} />
           <Tab.Screen
             name="Ockovanie"
             component={Ockovanie}
