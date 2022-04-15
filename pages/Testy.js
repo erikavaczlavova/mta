@@ -15,9 +15,13 @@ const Testy = props => {
   const [isOn, setIsOn] = useState(true);
   const [data, setData] = useState([]);
   const [edit, setEdit] = useState(false);
+  const [editLoc, setEL] = useState('init');
+  const [editType, setType] = useState('init');
+  const [editID, setID] = useState('');
+  const [date, setDate] = useState('');
 
   const getPCR = () => {
-    return fetch('http://192.168.0.87:8000/test?user_id=9&type=PCR')
+    return fetch('http://192.168.1.107:8000/test?user_id=1&type=PCR')
       .then(response => response.json())
       .then(json => {
         setData(json.items);
@@ -28,7 +32,7 @@ const Testy = props => {
   };
 
   const getAG = () => {
-    return fetch('http://192.168.0.87:8000/test?user_id=9&type=AG')
+    return fetch('http://192.168.1.107:8000/test?user_id=1&type=AG')
       .then(response => response.json())
       .then(json => {
         setData(json.items);
@@ -69,7 +73,15 @@ const Testy = props => {
 
   return (
     <View style={styles.homeBody}>
-      {edit && <EditTest></EditTest>}
+      {edit && (
+        <EditTest
+          editType={editType}
+          setType={setType}
+          editLoc={editLoc}
+          setEL={setEL}
+          editID={editID}
+          date={date}></EditTest>
+      )}
       {isOn && (
         <View style={styles.body}>
           <FlatList
@@ -80,9 +92,14 @@ const Testy = props => {
                 style={styles.button}
                 android_ripple={{color: 'black'}}
                 onPress={() => {
-                  if (item.result != null) {
+                  if (item.result == null) {
                     setIsOn(false);
                     setEdit(true);
+                    setType(item.type);
+                    setEL(item.location);
+                    setID(item.id);
+
+                    setDate(item.date.toString().split('T')[0]);
                   } else {
                     console.log('no result');
                   }
