@@ -1,5 +1,5 @@
-import {Button, StyleSheet, Text, View, Pressable} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {StyleSheet, Text, View, Pressable} from 'react-native';
+import React from 'react';
 import {StatusBar} from 'expo-status-bar';
 
 const Help = props => {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 2,
     alignItems: 'center',
-    backgroundColor: 'olive',
+    backgroundColor: 'white',
     height: '100%',
   },
   button: {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     height: 60,
     width: 200,
-    marginVertical: 25,
+    marginVertical: 20,
   },
   butText: {
     color: 'white',

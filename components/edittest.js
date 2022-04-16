@@ -1,11 +1,4 @@
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  TextInput,
-} from 'react-native';
+import {StyleSheet, Text, View, Pressable, TextInput} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
 
@@ -41,9 +34,7 @@ const EditTest = props => {
           buttonColor="red"
           color="red"
           onPress={value => {
-            console.log(value);
             setDec(result[value]);
-            console.log(result[value]);
           }}
         />
         <Text style={{color: 'black', fontSize: 22, top: 15}}>
@@ -54,9 +45,8 @@ const EditTest = props => {
         </Text>
         <TextInput
           style={styles.input}
-          placeholder="Mesto"
+          defaultValue="Mesto"
           onChangeText={value => {
-            console.log(value);
             setPlac(value);
           }}></TextInput>
         <Text style={{color: 'black', fontSize: 22, top: 5, bottom: 10}}>
@@ -71,7 +61,7 @@ const EditTest = props => {
               location: newplace,
               type: decision,
             };
-            return await fetch('http://192.168.1.107:8000/test', {
+            return await fetch('http://192.168.0.87:8000/test', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -103,7 +93,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-
     backgroundColor: 'red',
     height: 50,
     width: 200,

@@ -21,7 +21,7 @@ const Testy = props => {
   const [date, setDate] = useState('');
 
   const getPCR = () => {
-    return fetch('http://192.168.1.107:8000/test?user_id=1&type=PCR')
+    return fetch('http://192.168.0.87:8000/test?user_id=9&type=PCR')
       .then(response => response.json())
       .then(json => {
         setData(json.items);
@@ -32,7 +32,7 @@ const Testy = props => {
   };
 
   const getAG = () => {
-    return fetch('http://192.168.1.107:8000/test?user_id=1&type=AG')
+    return fetch('http://192.168.0.87:8000/test?user_id=9&type=AG')
       .then(response => response.json())
       .then(json => {
         setData(json.items);

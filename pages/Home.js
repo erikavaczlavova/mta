@@ -1,11 +1,4 @@
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  BackHandler,
-} from 'react-native';
+import {StyleSheet, Text, View, Pressable, BackHandler} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
 import Help from '../components/help';
@@ -50,7 +43,7 @@ const Home = props => {
   return (
     <View style={styles.homeBody}>
       <View style={styles.body}>
-        <Text>{aaa}</Text>
+        <Text style={{color: 'black'}}>{aaa}</Text>
         {help && (
           <Help
             aaa={aaa}
@@ -108,7 +101,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 2,
     position: 'relative',
-    backgroundColor: 'olive',
+    backgroundColor: 'white',
     height: '100%',
   },
   button: {
