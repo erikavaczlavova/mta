@@ -14,7 +14,7 @@ const Files = props => {
   const [data, setData] = useState([]);
   const [title, setTitle] = useState('');
   const getFiles = () => {
-    return fetch('http://192.168.0.87:8000/file?user_id=8')
+    return fetch('http://192.168.0.87:8000/file?user_id=1')
       .then(response => response.json())
       .then(json => {
         console.log(json.items);

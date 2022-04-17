@@ -30,12 +30,12 @@ const TestVacc = props => {
 
   const putTest = async () => {
     let body = {
-      user_id: 10,
+      user_id: 1,
       location: newplace,
       type: newtype,
       date: newdate,
     };
-    return await fetch('http://192.168.0.87:8000/test', {
+    return await fetch('http://192.168.0.108:8000/test', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

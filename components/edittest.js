@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, Pressable, TextInput} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 import RadioForm, {
   RadioButton,
@@ -14,8 +15,8 @@ const EditTest = props => {
     {label: 'PCR', value: 1},
     {label: 'AG', value: 2},
   ];
-  const [decision, setDec] = useState(props.editType);
-  const [newplace, setPlac] = useState(props.editLoc);
+  const [decision, setDec] = useState('DEL');
+  const [newplace, setPlac] = useState('');
   const result = ['DEL', 'PCR', 'AG'];
   return (
     <View style={styles.homeBody}>
@@ -24,10 +25,10 @@ const EditTest = props => {
           Preobjednanie testu:{' '}
         </Text>
         <Text style={{color: 'black', fontSize: 22, top: 15}}>
-          Povodny typ : {props.editType} {props.editID} {'\n'}
+          Povodny typ : {props.editType} {'\n'}
         </Text>
         <Text style={{color: 'black', fontSize: 22, top: 5, bottom: 10}}>
-          Novy typ :
+          Novy typ : {'\n'}
         </Text>
         <RadioForm
           radio_props={radio}
@@ -45,7 +46,7 @@ const EditTest = props => {
         </Text>
         <TextInput
           style={styles.input}
-          defaultValue="Mesto"
+          placeholder="Mesto"
           onChangeText={value => {
             setPlac(value);
           }}></TextInput>
@@ -56,20 +57,47 @@ const EditTest = props => {
           style={styles.button}
           android_ripple={{color: 'black'}}
           onPress={async () => {
-            let body = {
-              id: props.editID,
-              location: newplace,
-              type: decision,
-            };
-            return await fetch('http://192.168.0.87:8000/test', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(body),
-            });
+            console.log(decision);
+            if (decision == 'DEL') {
+              showMessage({
+                message: 'Uspesne zrusene',
+                type: 'success',
+              });
+              props.setEdit(false);
+              props.setIsOn(true);
+              return await fetch(
+                `http://192.168.0.108:8000/test?id=${props.editID}`,
+                {
+                  method: 'DELETE',
+                },
+              );
+            } else {
+              if (newplace.length > 2) {
+                showMessage({
+                  message: 'Uspesne zmenene',
+                  type: 'success',
+                });
+                let body = {
+                  id: props.editID,
+                  location: newplace,
+                  type: decision,
+                };
+                return await fetch('http://192.168.0.108:8000/test', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(body),
+                });
+              } else {
+                showMessage({
+                  message: 'Zadajte mesto',
+                  type: 'warning',
+                });
+              }
+            }
           }}>
-          <Text style={styles.butText}>Save</Text>
+          <Text style={styles.butText}>Ulozit</Text>
         </Pressable>
       </View>
       <StatusBar style="auto" />

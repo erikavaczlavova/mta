@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 import Files from '../components/files';
 
 const Profil = props => {
@@ -15,22 +16,28 @@ const Profil = props => {
   const [butt, setButt] = useState(false);
   const [show, setShow] = useState(false);
   const [add, setAdd] = useState(false);
+  const [editnum, setNum] = useState('');
+  const [editwe, setWe] = useState('');
+  const [edithe, setHe] = useState('');
   const [data, setData] = useState({
     birthdate: '',
     birthnum: '',
-    height: null,
+    height: '',
     id: 1,
     name: '',
     password: '1111',
-    weight: null,
+    weight: '',
   });
 
   const getProfil = () => {
     setIsOn(true);
-    return fetch('http://192.168.0.87:8000/user?id=7')
+    return fetch('http://192.168.0.108:8000/user?id=1')
       .then(response => response.json())
       .then(json => {
         setData(json);
+        setNum(json.birthnum);
+        setWe(json.weight);
+        setHe(json.height);
       })
       .catch(error => {
         console.error(error);
@@ -38,7 +45,6 @@ const Profil = props => {
   };
 
   const back = () => {
-    console.log(isOn, butt, add, show);
     if (butt) {
       setIsOn(true);
     }
@@ -91,7 +97,10 @@ const Profil = props => {
           </Text>
           <TextInput
             style={styles.input2}
-            value={data.birthnum}
+            defaultValue={data.birthnum}
+            onChangeText={value => {
+              setNum(value);
+            }}
             fontSize={20}></TextInput>
           <Text style={{color: 'black', left: 21, fontSize: 20, bottom: 95}}>
             Datum {'\n'}narodenia:
@@ -106,19 +115,70 @@ const Profil = props => {
           </Text>
           <TextInput
             style={styles.input4}
-            value={data.weight}
+            defaultValue={data.weight.toString()}
+            onChangeText={value => {
+              setWe(value);
+            }}
             fontSize={20}></TextInput>
           <Text style={{color: 'black', left: 21, fontSize: 20, bottom: 165}}>
             Vyska:
           </Text>
           <TextInput
             style={styles.input5}
-            value={data.weight}
+            defaultValue={data.height.toString()}
+            onChangeText={value => {
+              setHe(value);
+            }}
             fontSize={20}></TextInput>
+          <Pressable
+            style={styles.button3}
+            android_ripple={{color: 'black'}}
+            onPress={async () => {
+              if (
+                edithe > 0 &&
+                editwe > 0 &&
+                editnum.length == 9 &&
+                editnum[4] == '/' &&
+                (parseInt(editnum.substring(0, 4)).toString().length == 4 ||
+                  parseInt(editnum.substring(0, 4)) == 0) &&
+                (parseInt(editnum.substring(5, 9)).toString().length == 4 ||
+                  parseInt(editnum.substring(5, 9)) == 0)
+              ) {
+                showMessage({
+                  message: 'Zmeny ulozene',
+                  type: 'success',
+                });
+                let body = {
+                  birthdate: data.birthdate,
+                  birthnum: editnum,
+                  height: edithe,
+                  id: data.id,
+                  password: data.password,
+                  weight: editwe,
+                };
+                return await fetch('http://192.168.0.108:8000/user', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(body),
+                });
+              } else {
+                showMessage({
+                  message: 'Zly format',
+                  description: 'Rodne cislo: 0000/0000, Vyska/Vaha: cislo',
+                  type: 'warning',
+                });
+              }
+            }}>
+            <Text style={styles.butText}>Ulozit zmeny</Text>
+          </Pressable>
           <Pressable
             style={styles.button}
             android_ripple={{color: 'black'}}
-            onPress={async () => getProfil()}>
+            onPress={async () => {
+              getProfil();
+            }}>
             <Text style={styles.butText}>Zobraz profil</Text>
           </Pressable>
           <Pressable
@@ -168,7 +228,7 @@ const styles = StyleSheet.create({
     width: 320,
     marginVertical: 5,
     position: 'relative',
-    bottom: 60,
+    bottom: 80,
   },
   button2: {
     alignItems: 'center',
@@ -180,7 +240,19 @@ const styles = StyleSheet.create({
     width: 320,
     marginVertical: 5,
     position: 'relative',
-    bottom: 50,
+    bottom: 80,
+  },
+  button3: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    left: 220,
+    backgroundColor: 'red',
+    height: 40,
+    width: 150,
+    marginVertical: 5,
+    position: 'relative',
+    bottom: 210,
   },
   butText: {
     color: 'white',
