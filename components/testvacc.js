@@ -1,6 +1,8 @@
 import {StyleSheet, Text, View, Pressable, TextInput} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
+import {showMessage, hideMessage} from 'react-native-flash-message';
+import moment from 'moment';
 
 import RadioForm, {
   RadioButton,
@@ -15,6 +17,9 @@ const TestVacc = props => {
   const [newtype, setNType] = useState('');
   const [newdoc, setDoc] = useState('');
   const [newvacc, setVacc] = useState('');
+  const [dateInput, setDI] = useState('YYYY-MM-DD');
+  const [locInput, setLI] = useState('Mesto');
+  const [typeInput, setTI] = useState('');
   const radio = [
     {label: 'Vaccine', value: 0},
     {label: 'Test', value: 1},
@@ -85,31 +90,82 @@ const TestVacc = props => {
         <Text style={styles.label}>{'\n\n'}Mesto:</Text>
         <TextInput
           style={styles.input}
-          defaultValue="Mesto"
+          defaultValue={locInput}
           fontSize={20}
-          onChangeText={value => setPlac(value)}></TextInput>
+          onChangeText={value => {
+            setPlac(value), setLI(value);
+          }}></TextInput>
         <Text style={styles.label}>Datum:</Text>
         <TextInput
           style={styles.input}
-          defaultValue="Datum"
+          defaultValue={dateInput}
           fontSize={20}
-          onChangeText={value => setDate(value + 'T09:12:33.001Z')}></TextInput>
+          onChangeText={value => {
+            setDate(value + 'T09:12:33.001Z'), setDI(value);
+          }}></TextInput>
         <Text style={styles.label}>{type}</Text>
         <TextInput
           style={styles.input}
-          defaultValue=""
+          defaultValue={typeInput}
           fontSize={20}
-          onChangeText={value => setNType(value)}></TextInput>
+          onChangeText={value => {
+            setNType(value), setTI(value);
+          }}></TextInput>
         <Pressable
           style={styles.button}
           android_ripple={{color: 'black'}}
           onPress={() => {
             if (type == 'Davka:') {
-              setDoc(doctors[Math.floor(Math.random() * doctors.length)]);
-              setVacc(name[Math.floor(Math.random() * name.length)]);
-              putVacc();
+              if (
+                newtype > 0 &&
+                newplace.length > 2 &&
+                moment(newdate.split('T')[0], 'YYYY-MM-DD', true).isValid()
+              ) {
+                setDoc(doctors[Math.floor(Math.random() * doctors.length)]);
+                setVacc(name[Math.floor(Math.random() * name.length)]);
+                putVacc();
+                showMessage({
+                  message: 'Termin zaregistrovany',
+                  type: 'success',
+                });
+                setDI('YYYY-MM-DD');
+                setLI('Mesto');
+                setTI('');
+                setPlac('');
+                setDate('');
+                setNType('');
+              } else {
+                showMessage({
+                  message: 'Zly format',
+                  description: 'Mesto: vyplnene, Datum: YYYY-MM-DD, Davka: 1-5',
+                  type: 'warning',
+                });
+              }
             } else {
-              putTest();
+              if (
+                (newtype == 'AG' || newtype == 'PCR') &&
+                newplace.length > 2 &&
+                moment(newdate.split('T')[0], 'YYYY-MM-DD', true).isValid()
+              ) {
+                putTest();
+                showMessage({
+                  message: 'Termin zaregistrovany',
+                  type: 'success',
+                });
+                setDI('YYYY-MM-DD');
+                setLI('Mesto');
+                setTI('');
+                setPlac('');
+                setDate('');
+                setNType('');
+              } else {
+                showMessage({
+                  message: 'Zly format',
+                  description:
+                    'Mesto: vyplnene, Datum: YYYY-MM-DD, Typ: AG/PCR',
+                  type: 'warning',
+                });
+              }
             }
           }}>
           <Text style={styles.butText}>Save</Text>

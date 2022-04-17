@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {Button, StyleSheet, Text, View, Pressable} from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './pages/Home.js';
 import Ockovanie from './pages/Ockovanie.js';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Testy} from './pages/Testy.js';
 import Profil from './pages/Profil.js';
+import FlashMessage from 'react-native-flash-message';
 
-const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -40,6 +39,7 @@ export default function App() {
           />
         </Tab.Group>
       </Tab.Navigator>
+      <FlashMessage position="center" />
     </NavigationContainer>
   );
 }
