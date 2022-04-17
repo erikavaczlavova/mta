@@ -7,14 +7,17 @@ import {
   TextInput,
   Image,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {StatusBar} from 'expo-status-bar';
+import DocumentPicker from 'react-native-document-picker';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const Files = props => {
   const [data, setData] = useState([]);
   const [title, setTitle] = useState('');
+  const [newtitle, setNTitle] = useState('');
   const getFiles = () => {
-    return fetch('http://192.168.0.87:8000/file?user_id=1')
+    return fetch('http://192.168.0.87:8000/file?user_id=8')
       .then(response => response.json())
       .then(json => {
         console.log(json.items);
@@ -23,6 +26,30 @@ const Files = props => {
       .catch(error => {
         console.error(error);
       });
+  };
+
+  const [fileResponse, setFileResponse] = useState([]);
+
+  const handleDocumentSelection = useCallback(async () => {
+    try {
+      const response = await DocumentPicker.pick({
+        presentationStyle: 'fullScreen',
+      });
+      setFileResponse(response);
+    } catch (err) {
+      console.warn(err);
+    }
+  }, []);
+
+  const putFile = async () => {
+    const upload = new FormData();
+    upload.append('title', newtitle);
+    upload.append('user_id', 8);
+    upload.append('file', fileResponse[0]);
+    return await fetch('http://192.168.0.87:8000/file', {
+      method: 'POST',
+      body: upload,
+    });
   };
 
   return (
@@ -61,7 +88,13 @@ const Files = props => {
         )}
         {props.add && (
           <View>
-            <Text style={{color: 'black'}}>Browse button??? pls</Text>
+            <Pressable
+              style={styles.button}
+              android_ripple={{color: 'black'}}
+              onPress={handleDocumentSelection}>
+              <Text style={{color: 'black'}}>Browse</Text>
+            </Pressable>
+
             <Text
               style={{
                 color: 'black',
@@ -74,13 +107,20 @@ const Files = props => {
             <TextInput
               style={styles.input}
               defaultValue="Your title"
-              fontSize={20}></TextInput>
+              fontSize={20}
+              onChangeText={value => {
+                setNTitle(value);
+              }}></TextInput>
 
             <Pressable
               style={styles.button}
               android_ripple={{color: 'black'}}
               onPress={() => {
-                console.log('add');
+                putFile();
+                showMessage({
+                  message: 'Nahranie uspesne',
+                  type: 'success',
+                });
               }}>
               <Text style={styles.butText}>ADD</Text>
             </Pressable>
