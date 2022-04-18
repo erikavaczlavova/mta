@@ -7,8 +7,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Testy} from './pages/Testy.js';
 import Profil from './pages/Profil.js';
 import FlashMessage from 'react-native-flash-message';
+import Login from './pages/Login.js';
 
 const Tab = createBottomTabNavigator();
+global.userid = 0;
 
 export default function App() {
   return (
@@ -25,6 +27,7 @@ export default function App() {
           },
         }}>
         <Tab.Group screenOptions={{headerStyle: {backgroundColor: 'red'}}}>
+          <Tab.Screen name="Login" component={Login} options={styles.header} />
           <Tab.Screen name="Home" component={Home} options={styles.header} />
           <Tab.Screen name="Testy" component={Testy} options={styles.header} />
           <Tab.Screen

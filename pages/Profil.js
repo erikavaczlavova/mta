@@ -31,12 +31,20 @@ const Profil = props => {
 
   const getProfil = () => {
     setIsOn(true);
-    return fetch('http://192.168.0.108:8000/user?id=1')
+    return fetch(`http://192.168.0.108:8000/user?id=${global.userid}`)
       .then(response => response.json())
       .then(json => {
         setData(json);
+        if (json.weight != null) setWe(json.weight);
+        else {
+          setWe('');
+        }
+        if (json.height != null) setWe(json.height);
+        else {
+          setHe('');
+        }
         setNum(json.birthnum);
-        setWe(json.weight);
+
         setHe(json.height);
       })
       .catch(error => {
@@ -134,39 +142,46 @@ const Profil = props => {
             style={styles.button3}
             android_ripple={{color: 'black'}}
             onPress={async () => {
-              if (
-                edithe > 0 &&
-                editwe > 0 &&
-                editnum.length == 9 &&
-                editnum[4] == '/' &&
-                (parseInt(editnum.substring(0, 4)).toString().length == 4 ||
-                  parseInt(editnum.substring(0, 4)) == 0) &&
-                (parseInt(editnum.substring(5, 9)).toString().length == 4 ||
-                  parseInt(editnum.substring(5, 9)) == 0)
-              ) {
-                showMessage({
-                  message: 'Zmeny ulozene',
-                  type: 'success',
-                });
-                let body = {
-                  birthdate: data.birthdate,
-                  birthnum: editnum,
-                  height: edithe,
-                  id: data.id,
-                  password: data.password,
-                  weight: editwe,
-                };
-                return await fetch('http://192.168.0.108:8000/user', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(body),
-                });
+              if (global.userid != 0) {
+                if (
+                  edithe > 0 &&
+                  editwe > 0 &&
+                  editnum.length == 9 &&
+                  editnum[4] == '/' &&
+                  (parseInt(editnum.substring(0, 4)).toString().length == 4 ||
+                    parseInt(editnum.substring(0, 4)) == 0) &&
+                  (parseInt(editnum.substring(5, 9)).toString().length == 4 ||
+                    parseInt(editnum.substring(5, 9)) == 0)
+                ) {
+                  showMessage({
+                    message: 'Zmeny ulozene',
+                    type: 'success',
+                  });
+                  let body = {
+                    birthdate: data.birthdate,
+                    birthnum: editnum,
+                    height: edithe,
+                    id: data.id,
+                    password: data.password,
+                    weight: editwe,
+                  };
+                  return await fetch('http://192.168.0.108:8000/user', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(body),
+                  });
+                } else {
+                  showMessage({
+                    message: 'Zly format',
+                    description: 'Rodne cislo: 0000/0000, Vyska/Vaha: cislo',
+                    type: 'warning',
+                  });
+                }
               } else {
                 showMessage({
-                  message: 'Zly format',
-                  description: 'Rodne cislo: 0000/0000, Vyska/Vaha: cislo',
+                  message: 'Uzivatel nie je prihlaseny',
                   type: 'warning',
                 });
               }
@@ -177,7 +192,13 @@ const Profil = props => {
             style={styles.button}
             android_ripple={{color: 'black'}}
             onPress={async () => {
-              getProfil();
+              if (global.userid != 0) getProfil();
+              else {
+                showMessage({
+                  message: 'Uzivatel nie je prihlaseny',
+                  type: 'warning',
+                });
+              }
             }}>
             <Text style={styles.butText}>Zobraz profil</Text>
           </Pressable>
@@ -185,7 +206,13 @@ const Profil = props => {
             style={styles.button2}
             android_ripple={{color: 'black'}}
             onPress={async () => {
-              setIsOn(false), setButt(true);
+              if (global.userid != 0) setIsOn(false), setButt(true);
+              else {
+                showMessage({
+                  message: 'Uzivatel nie je prihlaseny',
+                  type: 'warning',
+                });
+              }
             }}>
             <Text style={styles.butText}>Dokumenty</Text>
           </Pressable>

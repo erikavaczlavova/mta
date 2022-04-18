@@ -10,6 +10,7 @@ import {
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
 import EditTest from '../components/edittest';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const Testy = props => {
   const [isOn, setIsOn] = useState(true);
@@ -21,7 +22,9 @@ const Testy = props => {
   const [date, setDate] = useState('');
 
   const getPCR = () => {
-    return fetch('http://192.168.0.108:8000/test?user_id=1&type=PCR')
+    return fetch(
+      `http://192.168.0.108:8000/test?user_id=${global.userid}&type=PCR`,
+    )
       .then(response => response.json())
       .then(json => {
         setData(json.items);
@@ -32,7 +35,9 @@ const Testy = props => {
   };
 
   const getAG = () => {
-    return fetch('http://192.168.0.108:8000/test?user_id=1&type=AG')
+    return fetch(
+      `http://192.168.0.108:8000/test?user_id=${global.userid}&type=AG`,
+    )
       .then(response => response.json())
       .then(json => {
         setData(json.items);
@@ -121,13 +126,31 @@ const Testy = props => {
           <Pressable
             style={styles.button2}
             android_ripple={{color: 'black'}}
-            onPress={() => getPCR()}>
+            onPress={() => {
+              if (global.userid != 0) {
+                getPCR();
+              } else {
+                showMessage({
+                  message: 'Uzivatel nie je prihlaseny',
+                  type: 'warning',
+                });
+              }
+            }}>
             <Text style={styles.butText2}>GET PCR TESTS</Text>
           </Pressable>
           <Pressable
             style={styles.button2}
             android_ripple={{color: 'black'}}
-            onPress={() => getAG()}>
+            onPress={() => {
+              if (global.userid != 0) {
+                getAG();
+              } else {
+                showMessage({
+                  message: 'Uzivatel nie je prihlaseny',
+                  type: 'warning',
+                });
+              }
+            }}>
             <Text style={styles.butText2}>GET AG TESTS</Text>
           </Pressable>
         </View>

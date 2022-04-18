@@ -30,7 +30,7 @@ const TestVacc = props => {
 
   const putTest = async () => {
     let body = {
-      user_id: 1,
+      user_id: global.userid,
       location: newplace,
       type: newtype,
       date: newdate,
@@ -46,14 +46,14 @@ const TestVacc = props => {
 
   const putVacc = async () => {
     let body = {
-      user_id: 10,
+      user_id: global.userid,
       location: newplace,
       dose: newtype,
       date: newdate,
       doctor: newdoc,
       name: newvacc,
     };
-    return await fetch('http://192.168.0.87:8000/vaccine', {
+    return await fetch('http://192.168.0.108:8000/vaccine', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -115,57 +115,68 @@ const TestVacc = props => {
           style={styles.button}
           android_ripple={{color: 'black'}}
           onPress={() => {
-            if (type == 'Davka:') {
-              if (
-                newtype > 0 &&
-                newplace.length > 2 &&
-                moment(newdate.split('T')[0], 'YYYY-MM-DD', true).isValid()
-              ) {
-                setDoc(doctors[Math.floor(Math.random() * doctors.length)]);
-                setVacc(name[Math.floor(Math.random() * name.length)]);
-                putVacc();
-                showMessage({
-                  message: 'Termin zaregistrovany',
-                  type: 'success',
-                });
-                setDI('YYYY-MM-DD');
-                setLI('Mesto');
-                setTI('');
-                setPlac('');
-                setDate('');
-                setNType('');
+            if (global.userid != 0) {
+              if (type == 'Davka:') {
+                if (
+                  newtype > 0 &&
+                  newplace.length > 2 &&
+                  moment(newdate.split('T')[0], 'YYYY-MM-DD', true).isValid()
+                ) {
+                  setDoc(doctors[Math.floor(Math.random() * doctors.length)]);
+                  setVacc(name[Math.floor(Math.random() * name.length)]);
+                  putVacc();
+                  showMessage({
+                    message: 'Termin zaregistrovany',
+                    type: 'success',
+                  });
+                  setDI('YYYY-MM-DD');
+                  setLI('Mesto');
+                  setTI('');
+                  setPlac('');
+                  setDate('');
+                  setNType('');
+                } else {
+                  showMessage({
+                    message: 'Zly format',
+                    description:
+                      'Mesto: vyplnene, Datum: YYYY-MM-DD, Davka: 1-5',
+                    type: 'warning',
+                  });
+                }
               } else {
-                showMessage({
-                  message: 'Zly format',
-                  description: 'Mesto: vyplnene, Datum: YYYY-MM-DD, Davka: 1-5',
-                  type: 'warning',
-                });
+                if (
+                  (newtype == 'AG' || newtype == 'PCR') &&
+                  newplace.length > 2 &&
+                  moment(newdate.split('T')[0], 'YYYY-MM-DD', true).isValid()
+                ) {
+                  putTest();
+                  showMessage({
+                    message: 'Termin zaregistrovany',
+                    type: 'success',
+                  });
+                  setDI('YYYY-MM-DD');
+                  setLI('Mesto');
+                  setTI('');
+                  setPlac('');
+                  setDate('');
+                  setNType('');
+                } else {
+                  showMessage({
+                    message: 'Zly format',
+                    description:
+                      'Mesto: vyplnene, Datum: YYYY-MM-DD, Typ: AG/PCR',
+                    type: 'warning',
+                  });
+                }
               }
             } else {
-              if (
-                (newtype == 'AG' || newtype == 'PCR') &&
-                newplace.length > 2 &&
-                moment(newdate.split('T')[0], 'YYYY-MM-DD', true).isValid()
-              ) {
-                putTest();
-                showMessage({
-                  message: 'Termin zaregistrovany',
-                  type: 'success',
-                });
-                setDI('YYYY-MM-DD');
-                setLI('Mesto');
-                setTI('');
-                setPlac('');
-                setDate('');
-                setNType('');
-              } else {
-                showMessage({
-                  message: 'Zly format',
-                  description:
-                    'Mesto: vyplnene, Datum: YYYY-MM-DD, Typ: AG/PCR',
-                  type: 'warning',
-                });
-              }
+              setDI('');
+              setLI('');
+              setTI('');
+              showMessage({
+                message: 'Uzivatel nie je prihlaseny',
+                type: 'warning',
+              });
             }
           }}>
           <Text style={styles.butText}>Save</Text>

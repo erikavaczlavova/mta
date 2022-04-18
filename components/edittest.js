@@ -82,6 +82,8 @@ const EditTest = props => {
                   location: newplace,
                   type: decision,
                 };
+                props.setEdit(false);
+                props.setIsOn(true);
                 return await fetch('http://192.168.0.108:8000/test', {
                   method: 'POST',
                   headers: {

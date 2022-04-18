@@ -17,7 +17,7 @@ const Files = props => {
   const [title, setTitle] = useState('');
   const [newtitle, setNTitle] = useState('');
   const getFiles = () => {
-    return fetch('http://192.168.0.87:8000/file?user_id=8')
+    return fetch(`http://192.168.0.108:8000/file?user_id=${global.userid}`)
       .then(response => response.json())
       .then(json => {
         console.log(json.items);
@@ -44,9 +44,9 @@ const Files = props => {
   const putFile = async () => {
     const upload = new FormData();
     upload.append('title', newtitle);
-    upload.append('user_id', 8);
+    upload.append('user_id', global.userid);
     upload.append('file', fileResponse[0]);
-    return await fetch('http://192.168.0.87:8000/file', {
+    return await fetch('http://192.168.0.108:8000/file', {
       method: 'POST',
       body: upload,
     });
@@ -59,7 +59,7 @@ const Files = props => {
           <View>
             <Image
               source={{
-                uri: `http://192.168.0.87:8000/file?user_id=8&title=${title}`,
+                uri: `http://192.168.0.108:8000/file?user_id=${global.userid}&title=${title}`,
               }}
               style={{
                 width: 325,

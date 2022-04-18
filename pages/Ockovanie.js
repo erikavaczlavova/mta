@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, Pressable, FlatList, Image} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const Ockovanie = props => {
   const [data, setData] = useState([]);
@@ -11,7 +12,7 @@ const Ockovanie = props => {
   };
 
   const getVacc = () => {
-    return fetch('http://192.168.0.87:8000/vaccine?user_id=8')
+    return fetch(`http://192.168.0.108:8000/vaccine?user_id=${global.userid}`)
       .then(response => response.json())
       .then(json => {
         setData(json.items);
@@ -22,7 +23,7 @@ const Ockovanie = props => {
   };
 
   const getPass = () => {
-    return fetch('http://192.168.0.87:8000/passport?user_id=8')
+    return fetch(`http://192.168.0.108:8000/passport?user_id=${global.userid}`)
       .then(response => response.json())
       .then(json => {
         setDose(json.items[json.items.length - 1].dose);
@@ -84,8 +85,15 @@ const Ockovanie = props => {
           style={styles.button2}
           android_ripple={{color: 'black'}}
           onPress={() => {
-            getPass();
-            setPas(true);
+            if (global.userid != 0) {
+              getPass();
+              setPas(true);
+            } else {
+              showMessage({
+                message: 'Uzivatel nie je prihlaseny',
+                type: 'warning',
+              });
+            }
           }}>
           <Text style={styles.butText2}>GET Pas</Text>
         </Pressable>
@@ -93,8 +101,15 @@ const Ockovanie = props => {
           style={styles.button3}
           android_ripple={{color: 'black'}}
           onPress={() => {
-            getVacc();
-            setPas(false);
+            if (global.userid != 0) {
+              getVacc();
+              setPas(false);
+            } else {
+              showMessage({
+                message: 'Uzivatel nie je prihlaseny',
+                type: 'warning',
+              });
+            }
           }}>
           <Text style={styles.butText2}>GET VACC</Text>
         </Pressable>
