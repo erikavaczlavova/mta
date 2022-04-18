@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "329917050949",
+    "project_id": "mtaa-tz-ev",
+    "storage_bucket": "mtaa-tz-ev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329917050949:android:3c7efa9fae888dc8d0f32c",
+        "android_client_info": {
+          "package_name": "com.mta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329917050949-n80fd6neavo8f6fk1m984kq7alfmlcrp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApjvMR0HOB8SP6gSSlSIuLYp-8VeG7RBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329917050949-n80fd6neavo8f6fk1m984kq7alfmlcrp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
