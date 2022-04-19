@@ -46,7 +46,7 @@ const Files = props => {
     upload.append('title', newtitle);
     upload.append('user_id', global.userid);
     upload.append('file', fileResponse[0]);
-    return await fetch('http://192.168.0.87:8000/file', {
+    return await fetch(`http://${global.ip}:8000/file`, {
       method: 'POST',
       body: upload,
     });

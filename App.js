@@ -20,7 +20,7 @@ import Login from './pages/Login.js';
 
 const Tab = createBottomTabNavigator();
 global.userid = 0;
-global.ip = '147.175.162.45';
+global.ip = '192.168.0.108';
 
 // Just to handle navigation
 export default function App() {

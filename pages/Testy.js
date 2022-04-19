@@ -23,7 +23,7 @@ const Testy = props => {
 
   const getPCR = () => {
     return fetch(
-      `http://192.168.0.108:8000/test?user_id=${global.userid}&type=PCR`,
+      `http://${global.ip}:8000/test?user_id=${global.userid}&type=PCR`,
     )
       .then(response => response.json())
       .then(json => {
@@ -36,7 +36,7 @@ const Testy = props => {
 
   const getAG = () => {
     return fetch(
-      `http://192.168.0.108:8000/test?user_id=${global.userid}&type=AG`,
+      `http://${global.ip}:8000/test?user_id=${global.userid}&type=AG`,
     )
       .then(response => response.json())
       .then(json => {
@@ -136,7 +136,7 @@ const Testy = props => {
                 });
               }
             }}>
-            <Text style={styles.butText2}>GET PCR TESTS</Text>
+            <Text style={styles.butText2}>Zobraz PCR testy</Text>
           </Pressable>
           <Pressable
             style={styles.button2}
@@ -151,7 +151,7 @@ const Testy = props => {
                 });
               }
             }}>
-            <Text style={styles.butText2}>GET AG TESTS</Text>
+            <Text style={styles.butText2}>Zobraz AG testy</Text>
           </Pressable>
         </View>
       )}

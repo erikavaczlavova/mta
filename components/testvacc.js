@@ -35,7 +35,7 @@ const TestVacc = props => {
       type: newtype,
       date: newdate,
     };
-    return await fetch('http://192.168.0.108:8000/test', {
+    return await fetch(`http://${global.ip}:8000/test`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const TestVacc = props => {
       doctor: newdoc,
       name: newvacc,
     };
-    return await fetch('http://192.168.0.108:8000/vaccine', {
+    return await fetch(`http://${global.ip}:8000/vaccine`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -98,6 +98,7 @@ const TestVacc = props => {
         <Text style={styles.label}>Datum:</Text>
         <TextInput
           style={styles.input}
+          keyboardType="numeric"
           defaultValue={dateInput}
           fontSize={20}
           onChangeText={value => {
@@ -179,7 +180,7 @@ const TestVacc = props => {
               });
             }
           }}>
-          <Text style={styles.butText}>Save</Text>
+          <Text style={styles.butText}>Objednat</Text>
         </Pressable>
       </View>
       <StatusBar style="auto" />

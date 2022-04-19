@@ -66,7 +66,7 @@ const EditTest = props => {
               props.setEdit(false);
               props.setIsOn(true);
               return await fetch(
-                `http://192.168.0.108:8000/test?id=${props.editID}`,
+                `http://${global.ip}:8000/test?id=${props.editID}`,
                 {
                   method: 'DELETE',
                 },
@@ -84,7 +84,7 @@ const EditTest = props => {
                 };
                 props.setEdit(false);
                 props.setIsOn(true);
-                return await fetch('http://192.168.0.108:8000/test', {
+                return await fetch(`http://${global.ip}:8000/test`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',

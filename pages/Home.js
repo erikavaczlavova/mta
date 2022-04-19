@@ -43,7 +43,7 @@ const Home = props => {
   return (
     <View style={styles.homeBody}>
       <View style={styles.body}>
-        <Text style={{color: 'black'}}>{aaa}</Text>
+        <Text style={{color: 'black', fontSize: 20}}>{aaa}</Text>
         {help && (
           <Help
             aaa={aaa}
@@ -82,7 +82,7 @@ const Home = props => {
                 setIsOn(false);
                 setTV(true);
               }}>
-              <Text style={styles.butText}>Termin/Test</Text>
+              <Text style={styles.butText}>Novy test/ockovanie</Text>
             </Pressable>
           </View>
         )}

@@ -31,7 +31,7 @@ const Profil = props => {
 
   const getProfil = () => {
     setIsOn(true);
-    return fetch(`http://192.168.0.108:8000/user?id=${global.userid}`)
+    return fetch(`http://${global.ip}:8000/user?id=${global.userid}`)
       .then(response => response.json())
       .then(json => {
         setData(json);
@@ -165,7 +165,7 @@ const Profil = props => {
                     password: data.password,
                     weight: editwe,
                   };
-                  return await fetch('http://192.168.0.108:8000/user', {
+                  return await fetch(`http://${global.ip}:8000/user`, {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',

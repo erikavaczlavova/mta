@@ -12,7 +12,7 @@ const Ockovanie = props => {
   };
 
   const getVacc = () => {
-    return fetch(`http://192.168.0.108:8000/vaccine?user_id=${global.userid}`)
+    return fetch(`http://${global.ip}:8000/vaccine?user_id=${global.userid}`)
       .then(response => response.json())
       .then(json => {
         setData(json.items);
@@ -23,7 +23,7 @@ const Ockovanie = props => {
   };
 
   const getPass = () => {
-    return fetch(`http://192.168.0.108:8000/passport?user_id=${global.userid}`)
+    return fetch(`http://${global.ip}:8000/passport?user_id=${global.userid}`)
       .then(response => response.json())
       .then(json => {
         setDose(json.items[json.items.length - 1].dose);
@@ -95,7 +95,7 @@ const Ockovanie = props => {
               });
             }
           }}>
-          <Text style={styles.butText2}>GET Pas</Text>
+          <Text style={styles.butText2}>Zobraz Covid-Pas</Text>
         </Pressable>
         <Pressable
           style={styles.button3}
@@ -111,7 +111,7 @@ const Ockovanie = props => {
               });
             }
           }}>
-          <Text style={styles.butText2}>GET VACC</Text>
+          <Text style={styles.butText2}>Zobraz zaznamy vakcinacii</Text>
         </Pressable>
       </View>
       <StatusBar style="auto" />
