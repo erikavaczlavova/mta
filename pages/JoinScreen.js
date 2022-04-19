@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, StyleSheet, Button, View} from 'react-native';
+import {Text, StyleSheet, Button, View, Pressable} from 'react-native';
 
 import {
   RTCPeerConnection,
@@ -8,7 +8,7 @@ import {
   RTCIceCandidate,
   RTCSessionDescription,
 } from 'react-native-webrtc';
-import {db} from '../utilities/firebase.js';
+import {db} from '../utilities/firebase';
 
 const configuration = {
   iceServers: [
@@ -136,30 +136,51 @@ export default function JoinScreen({setScreen, screens, roomId}) {
 
       <View style={styles.callButtons}>
         <View styles={styles.buttonContainer}>
-          <Button title="Click to stop call" onPress={onBackPress} />
+          <Pressable
+            android_ripple={{color: 'black'}}
+            style={styles.button}
+            onPress={onBackPress}>
+            <Text style={styles.butText}>Click to stop call</Text>
+          </Pressable>
         </View>
         <View styles={styles.buttonContainer}>
           {!localStream && (
-            <Button title="Click to start stream" onPress={startLocalStream} />
+            <Pressable
+              android_ripple={{color: 'black'}}
+              style={styles.button}
+              onPress={startLocalStream}>
+              <Text style={styles.butText}> Click to start stream</Text>
+            </Pressable>
           )}
           {localStream && (
-            <Button
-              title="Click to join call"
+            <Pressable
+              android_ripple={{color: 'black'}}
+              style={styles.button}
               onPress={() => joinCall(roomId)}
-              disabled={!!remoteStream}
-            />
+              disabled={!!remoteStream}>
+              <Text style={styles.butText}>Click to join call</Text>
+            </Pressable>
           )}
         </View>
       </View>
 
       {localStream && (
         <View style={styles.toggleButtons}>
-          <Button title="Switch camera" onPress={switchCamera} />
-          <Button
-            title={`${isMuted ? 'Unmute' : 'Mute'} stream`}
+          <Pressable
+            android_ripple={{color: 'black'}}
+            style={styles.button}
+            onPress={switchCamera}>
+            <Text style={styles.butText}>Switch camera</Text>
+          </Pressable>
+          <Pressable
+            android_ripple={{color: 'black'}}
+            style={styles.button}
             onPress={toggleMute}
-            disabled={!remoteStream}
-          />
+            disabled={!remoteStream}>
+            <Text style={styles.butText}>{`${
+              isMuted ? 'Unmute' : 'Mute'
+            } stream`}</Text>
+          </Pressable>
         </View>
       )}
 
@@ -189,6 +210,7 @@ const styles = StyleSheet.create({
   heading: {
     alignSelf: 'center',
     fontSize: 30,
+    color: 'black',
   },
   rtcview: {
     flex: 1,
@@ -208,12 +230,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   callButtons: {
-    padding: 10,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
   buttonContainer: {
     margin: 5,
+  },
+  butText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: 125,
+    backgroundColor: 'tomato',
+    borderRadius: 10,
+    marginVertical: 5,
+    flexDirection: 'row',
+    left: 20,
   },
 });

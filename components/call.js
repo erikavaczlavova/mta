@@ -1,18 +1,46 @@
-import {Button, StyleSheet, Text, View, Pressable} from 'react-native';
+import {Button, StyleSheet, Text, View, Pressable, SafeAreaView} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
+import RoomScreen from '../pages/RoomScreen';
+import CallScreen from '../pages/CallScreen';
+import JoinScreen from '../pages/JoinScreen';
+
 
 const Call = props => {
+  const screens = {
+    ROOM: 'JOIN_ROOM',
+    CALL: 'CALL',
+    JOIN: 'JOIN',
+  }
+
+  const [screen, setScreen] = useState(screens.ROOM);
+  const [roomId, setRoomId] = useState('');
+
+  let content;
+
+  switch (screen) {
+    case screens.ROOM:
+      content = <RoomScreen roomId={roomId} setRoomId={setRoomId} screens={screens} setScreen={setScreen} />
+      break;
+
+    case screens.CALL:
+      content = <CallScreen roomId={roomId} screens={screens} setScreen={setScreen} />
+      break;
+
+    case screens.JOIN:
+      content = <JoinScreen roomId={roomId} screens={screens} setScreen={setScreen} />
+      break;
+
+    default:
+      content = <Text>Wrong Screen</Text>
+  }
+
   return (
-    <View style={styles.homeBody}>
-      <View style={styles.body}>
-        <Pressable style={styles.button} android_ripple={{color: 'black'}}>
-          <Text style={styles.butText}>Call</Text>
-        </Pressable>
-      </View>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <SafeAreaView style={styles.container} >
+      {content}
+    </SafeAreaView>
+  )
+
 };
 
 const styles = StyleSheet.create({

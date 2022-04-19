@@ -18,7 +18,7 @@ const Login = props => {
 
   const getLogin = () => {
     return fetch(
-      `http://192.168.0.108:8000/user?birthnum=${birthnum}&password=${password}`,
+      `http://${global.ip}:8000/user?birthnum=${birthnum}&password=${password}`,
     )
       .then(function (response) {
         if (response.status == 200) {
